@@ -91,7 +91,7 @@ code {
 :root {
   --background: hsl(120 40% 98%);
   --foreground: hsl(120 30% 10%);
-  --card: hsl(120 40% 98%);
+  --card: hsl(120 40% 100%);
   --card-foreground: hsl(120 30% 10%);
   --popover: hsl(120 40% 98%);
   --popover-foreground: hsl(120 30% 10%);
@@ -127,7 +127,7 @@ code {
 .dark {
   --background: hsl(120 15% 10%);
   --foreground: hsl(120 20% 90%);
-  --card: hsl(120 15% 10%);
+  --card: hsl(120 15% 15%);
   --card-foreground: hsl(120 20% 90%);
   --popover: hsl(120 15% 10%);
   --popover-foreground: hsl(120 20% 90%);

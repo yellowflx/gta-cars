@@ -115,7 +115,7 @@ export const CarList = () => {
 
   return (
     <div className="bg-background">
-      <div className="sticky top-0 z-10 border-b bg-card px-6 py-4">
+      <div className="sticky top-0 z-10 px-6 py-4">
         <h2 className="mb-4 font-bold text-2xl text-primary">GTA Online Vehicle List</h2>
         {/* Search and Sort Controls */}
         <div className="flex flex-col items-center justify-start gap-4 sm:flex-row">
