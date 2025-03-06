@@ -153,9 +153,9 @@ export const CarList = () => {
             />
             <label
               htmlFor="favorites"
-              className="font-medium text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              className="font-medium text-md leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
             >
-              Favorites ({favorites?.length || 0})
+              Favorites only ({favorites?.length || 0})
             </label>
           </div>
         </div>
