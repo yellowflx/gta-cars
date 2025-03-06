@@ -41,10 +41,10 @@ export const CarCard = ({car, action, favorite}: CarCardProps) => {
             variant={favorite ? 'destructive' : 'default'}
             size="icon"
             onClick={() => action(car)}
-            className="group shrink-0 cursor-pointer "
+            className="group shrink-0 cursor-pointer transition-all duration-200"
           >
             {favorite ? (
-              <div>
+              <div className="transition-all duration-200 ">
                 <Heart className="fill-background transition-all duration-200 group-hover:hidden" />
                 <HeartOff className="hidden transition-all duration-200 group-hover:block" />
               </div>
