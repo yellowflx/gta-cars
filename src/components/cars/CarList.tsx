@@ -105,16 +105,8 @@ export const CarList = () => {
     [cars, searchQuery, sortBy, selectedClass, favOnly, favorites],
   );
 
-  if (isLoading) {
-    return <p className="my-10 text-center text-gray-500">Loading cars...</p>;
-  }
-
-  if (!filteredAndSortedCars || filteredAndSortedCars.length === 0) {
-    return <p className="my-10 text-center text-gray-500">No cars found</p>;
-  }
-
   return (
-    <div className="bg-background">
+    <div className="h-screen bg-background">
       <div className="sticky top-0 z-10 px-6 py-4">
         <h2 className="mb-4 font-bold text-2xl text-primary">GTA Online Vehicle List</h2>
         {/* Search and Sort Controls */}
@@ -168,7 +160,17 @@ export const CarList = () => {
           </div>
         </div>
       </div>
-      <VirtualCarList cars={filteredAndSortedCars} favorites={favorites} action={toggleFavorite} />
+      {isLoading || !filteredAndSortedCars ? (
+        <div className="flex h-full items-center justify-center">
+          <p className="text-lg text-muted-foreground">Loading vehicles...</p>
+        </div>
+      ) : (
+        <VirtualCarList
+          cars={filteredAndSortedCars}
+          favorites={favorites}
+          action={toggleFavorite}
+        />
+      )}
     </div>
   );
 };
