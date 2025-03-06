@@ -1,23 +1,23 @@
-import { Input } from "@/components/ui/input";
+import {Input} from '@/components/ui/input';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { type FormattedCar, formatCars } from "@/lib/formatCars";
-import { useQuery } from "@tanstack/react-query";
-import { Search } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
-import { Checkbox } from "../ui/checkbox";
-import { VirtualCarList } from "./VirtualCarList";
+} from '@/components/ui/select';
+import {type FormattedCar, formatCars} from '@/lib/formatCars';
+import {useQuery} from '@tanstack/react-query';
+import {Search} from 'lucide-react';
+import {useEffect, useMemo, useState} from 'react';
+import {Checkbox} from '../ui/checkbox';
+import {VirtualCarList} from './VirtualCarList';
 
 const sortByPrice = (a: FormattedCar, b: FormattedCar) => {
   const getNumericPrice = (price: string | undefined): number => {
     if (!price) return 0;
     // Remove all non-numeric characters except decimal point
-    const numericString = price.replace(/[^0-9.]/g, "");
+    const numericString = price.replace(/[^0-9.]/g, '');
     return Number.parseFloat(numericString) || 0;
   };
 
@@ -28,16 +28,16 @@ const sortByPrice = (a: FormattedCar, b: FormattedCar) => {
 };
 
 export const CarList = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [sortBy, setSortBy] = useState("price (desc)");
+  const [searchQuery, setSearchQuery] = useState('');
+  const [sortBy, setSortBy] = useState('price (desc)');
   const [favorites, setFavorites] = useState<string[] | null>(null);
   const [classes, setClasses] = useState<string[]>([]);
-  const [selectedClass, setSelectedClass] = useState<string>("all");
+  const [selectedClass, setSelectedClass] = useState<string>('all');
   const [favOnly, setFavOnly] = useState(false);
 
   // Load favorites from localStorage on component mount
   useEffect(() => {
-    const savedFavorites = localStorage.getItem("favoriteCars");
+    const savedFavorites = localStorage.getItem('favoriteCars');
     if (savedFavorites) {
       setFavorites(JSON.parse(savedFavorites));
     }
@@ -46,7 +46,7 @@ export const CarList = () => {
   // Save favorites to localStorage whenever they change
   useEffect(() => {
     if (!favorites) return;
-    localStorage.setItem("favoriteCars", JSON.stringify(favorites));
+    localStorage.setItem('favoriteCars', JSON.stringify(favorites));
   }, [favorites]);
 
   const toggleFavorite = (car: FormattedCar) => {
@@ -62,13 +62,13 @@ export const CarList = () => {
     });
   };
 
-  const { data: cars, isLoading } = useQuery({
-    queryKey: ["cars"],
+  const {data: cars, isLoading} = useQuery({
+    queryKey: ['cars'],
     queryFn: async () => {
-      const response = await fetch("/cars.json");
+      const response = await fetch('/cars.json');
       const data = await response.json();
       const formattedCars = formatCars(data);
-      console.log("Formatted cars:", formattedCars.length);
+      console.log('Formatted cars:', formattedCars.length);
       const uniqueClasses = Array.from(new Set(formattedCars.map((car) => car.class)));
       setClasses(uniqueClasses.toSorted());
       return formattedCars;
@@ -80,7 +80,7 @@ export const CarList = () => {
     () =>
       cars
         ?.filter((car) => {
-          if (selectedClass !== "all" && car.class !== selectedClass) {
+          if (selectedClass !== 'all' && car.class !== selectedClass) {
             return false;
           }
           if (favOnly && !favorites?.includes(car.name)) {
@@ -90,19 +90,19 @@ export const CarList = () => {
         })
         .sort((a, b) => {
           switch (sortBy) {
-            case "price (asc)":
+            case 'price (asc)':
               return sortByPrice(a, b);
-            case "price (desc)":
+            case 'price (desc)':
               return sortByPrice(b, a);
-            case "nameAZ":
+            case 'nameAZ':
               return a.name.localeCompare(b.name);
-            case "nameZA":
+            case 'nameZA':
               return b.name.localeCompare(a.name);
             default:
               return 0;
           }
         }),
-    [cars, searchQuery, sortBy, selectedClass, favOnly, favorites]
+    [cars, searchQuery, sortBy, selectedClass, favOnly, favorites],
   );
 
   if (isLoading) {
@@ -168,11 +168,7 @@ export const CarList = () => {
           </div>
         </div>
       </div>
-      <VirtualCarList
-        cars={filteredAndSortedCars}
-        favorites={favorites}
-        action={toggleFavorite}
-      />
+      <VirtualCarList cars={filteredAndSortedCars} favorites={favorites} action={toggleFavorite} />
     </div>
   );
 };

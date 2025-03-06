@@ -8,7 +8,7 @@
   "files": {
     "ignoreUnknown": false,
 
-    "ignore": ["src/routeTree.gen.ts", "dist", "*.css", ".vscode", "src/components/ui"]
+    "ignore": ["public", "src/components/ui", "src/routeTree.gen.ts", "dist", "*.css", ".vscode"]
   },
   "formatter": {
     "enabled": true,

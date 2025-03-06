@@ -1,9 +1,9 @@
-import { Button } from "@/components/ui/button";
-import type { FormattedCar } from "@/lib/formatCars";
-import { useVirtualizer } from "@tanstack/react-virtual";
-import { ArrowUpCircle } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
-import { CarCard } from "./CarCard";
+import {Button} from '@/components/ui/button';
+import type {FormattedCar} from '@/lib/formatCars';
+import {useVirtualizer} from '@tanstack/react-virtual';
+import {ArrowUpCircle} from 'lucide-react';
+import {useEffect, useRef, useState} from 'react';
+import {CarCard} from './CarCard';
 
 interface VirtualCarListProps {
   cars: FormattedCar[];
@@ -11,13 +11,13 @@ interface VirtualCarListProps {
   action: (car: FormattedCar) => void;
 }
 
-export const VirtualCarList = ({ cars, favorites, action }: VirtualCarListProps) => {
+export const VirtualCarList = ({cars, favorites, action}: VirtualCarListProps) => {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const parentRef = useRef<HTMLDivElement>(null);
 
   // Calculate number of columns based on screen width
   const getColumnsCount = () => {
-    if (typeof window === "undefined") return 1;
+    if (typeof window === 'undefined') return 1;
     if (window.innerWidth >= 1536) return 6; // 2xl
     if (window.innerWidth >= 1280) return 5; // xl
     if (window.innerWidth >= 1024) return 4; // lg
@@ -34,8 +34,8 @@ export const VirtualCarList = ({ cars, favorites, action }: VirtualCarListProps)
       setColumns(getColumnsCount());
     };
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   // Handle scroll to top visibility
@@ -46,8 +46,8 @@ export const VirtualCarList = ({ cars, favorites, action }: VirtualCarListProps)
       }
     };
 
-    parentRef.current?.addEventListener("scroll", handleScroll);
-    return () => parentRef.current?.removeEventListener("scroll", handleScroll);
+    parentRef.current?.addEventListener('scroll', handleScroll);
+    return () => parentRef.current?.removeEventListener('scroll', handleScroll);
   }, []);
 
   // Create rows based on number of columns
@@ -57,11 +57,11 @@ export const VirtualCarList = ({ cars, favorites, action }: VirtualCarListProps)
     count: rows,
     getScrollElement: () => parentRef.current,
     estimateSize: () => 350,
-    overscan: 12,
+    overscan: 20,
   });
 
   const scrollToTop = () => {
-    parentRef.current?.scrollTo({ top: 0, behavior: "instant" });
+    parentRef.current?.scrollTo({top: 0, behavior: 'instant'});
   };
 
   return (
@@ -72,8 +72,8 @@ export const VirtualCarList = ({ cars, favorites, action }: VirtualCarListProps)
       <div
         style={{
           height: `${virtualizer.getTotalSize()}px`,
-          width: "100%",
-          position: "relative",
+          width: '100%',
+          position: 'relative',
         }}
       >
         {virtualizer.getVirtualItems().map((virtualRow) => {
@@ -84,10 +84,10 @@ export const VirtualCarList = ({ cars, favorites, action }: VirtualCarListProps)
             <div
               key={virtualRow.key}
               style={{
-                position: "absolute",
+                position: 'absolute',
                 top: 0,
                 left: 0,
-                width: "100%",
+                width: '100%',
                 height: `${virtualRow.size}px`,
                 transform: `translateY(${virtualRow.start}px)`,
               }}
@@ -102,7 +102,7 @@ export const VirtualCarList = ({ cars, favorites, action }: VirtualCarListProps)
                   />
                 ))}
                 {carsInRow.length < columns &&
-                  Array.from({ length: columns - carsInRow.length }).map((_, index) => (
+                  Array.from({length: columns - carsInRow.length}).map((_, index) => (
                     <div
                       key={`empty-${
                         // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>

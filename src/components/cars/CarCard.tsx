@@ -1,6 +1,6 @@
-import { type FormattedCar } from "@/lib/formatCars";
-import { Heart, HeartOff } from "lucide-react";
-import { Button } from "../ui/button";
+import {type FormattedCar} from '@/lib/formatCars';
+import {Heart, HeartOff} from 'lucide-react';
+import {Button} from '../ui/button';
 
 interface CarCardProps {
   car: FormattedCar;
@@ -8,7 +8,7 @@ interface CarCardProps {
   action: (car: FormattedCar) => void;
 }
 
-export const CarCard = ({ car, action, favorite }: CarCardProps) => {
+export const CarCard = ({car, action, favorite}: CarCardProps) => {
   return (
     <div className="relative w-full overflow-hidden rounded-lg bg-card shadow-md">
       <div className="h-48 overflow-hidden bg-black">
@@ -21,11 +21,9 @@ export const CarCard = ({ car, action, favorite }: CarCardProps) => {
       <div className="space-y-3 p-4">
         <h3 className="font-bold text-foreground text-xl tracking-tight">{car.name}</h3>
         <div className="flex items-center justify-between">
-          <span className="rounded bg-primary/10 px-2 py-1 text-primary text-sm">
-            {car.class}
-          </span>
+          <span className="rounded bg-primary/10 px-2 py-1 text-primary text-sm">{car.class}</span>
           <span className="font-bold text-primary text-xl tracking-tight">
-            ${car.price?.replace(/[^0-9]/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            ${car.price?.replace(/[^0-9]/g, '').replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
           </span>
         </div>
         <div className="flex justify-between gap-2">
@@ -40,12 +38,19 @@ export const CarCard = ({ car, action, favorite }: CarCardProps) => {
             </Button>
           </a>
           <Button
-            variant={favorite ? "destructive" : "default"}
+            variant={favorite ? 'destructive' : 'default'}
             size="icon"
             onClick={() => action(car)}
-            className="shrink-0 cursor-pointer"
+            className="group shrink-0 cursor-pointer "
           >
-            {favorite ? <Heart /> : <HeartOff />}
+            {favorite ? (
+              <div>
+                <Heart className="fill-background transition-all duration-200 group-hover:hidden" />
+                <HeartOff className="hidden transition-all duration-200 group-hover:block" />
+              </div>
+            ) : (
+              <Heart className="transition-all duration-200 group-hover:fill-background" />
+            )}
           </Button>
         </div>
       </div>
