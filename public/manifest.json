@@ -1,25 +1,19 @@
 {
-  "short_name": "TanStack App",
-  "name": "Create TanStack App Sample",
+  "short_name": "GTA Vehicles",
+  "name": "Vehicles of GTA Online",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "fav.webp",
       "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
-    },
-    {
-      "src": "logo192.png",
-      "type": "image/png",
-      "sizes": "192x192"
-    },
-    {
-      "src": "logo512.png",
-      "type": "image/png",
-      "sizes": "512x512"
+      "type": "image/webp"
     }
   ],
-  "start_url": ".",
+  "start_url": "/",
   "display": "standalone",
+  "orientation": "portrait",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "#ffffff",
+  "description": "Browse and favorite vehicles from GTA Online",
+  "categories": ["games", "entertainment"],
+  "lang": "en"
 }
