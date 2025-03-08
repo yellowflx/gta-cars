@@ -7,6 +7,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import {type FormattedCar, formatCars} from '@/lib/formatCars';
+import {debounce, getColumnsCount} from '@/lib/utils';
 import {useQuery} from '@tanstack/react-query';
 import {Search} from 'lucide-react';
 import {useEffect, useMemo, useState} from 'react';
@@ -34,6 +35,17 @@ export const CarList = () => {
   const [classes, setClasses] = useState<string[]>([]);
   const [selectedClass, setSelectedClass] = useState<string>('all');
   const [favOnly, setFavOnly] = useState(false);
+  const [columns, setColumns] = useState(getColumnsCount());
+
+  // Add resize handler
+  useEffect(() => {
+    const handleResize = debounce(() => {
+      setColumns(getColumnsCount());
+    }, 150);
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Load favorites from localStorage on component mount
   useEffect(() => {
@@ -73,6 +85,8 @@ export const CarList = () => {
       setClasses(uniqueClasses.toSorted());
       return formattedCars;
     },
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
   });
 
   // Filter and sort cars
@@ -106,8 +120,8 @@ export const CarList = () => {
   );
 
   return (
-    <div className="h-screen bg-background">
-      <div className="sticky top-0 z-10 px-6 py-4">
+    <div className="flex h-screen flex-col gap-4 bg-background">
+      <div className="top-0 z-10 px-6 pt-4">
         <h2 className="mb-4 font-bold text-2xl text-primary">GTA Online Vehicle List</h2>
         {/* Search and Sort Controls */}
         <div className="flex flex-col items-center justify-start gap-4 sm:flex-row">
@@ -169,6 +183,7 @@ export const CarList = () => {
           cars={filteredAndSortedCars}
           favorites={favorites}
           action={toggleFavorite}
+          columns={columns}
         />
       )}
     </div>
