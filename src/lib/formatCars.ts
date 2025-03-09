@@ -31,7 +31,7 @@ export interface FormattedCar {
   name: string;
   class: string;
   image: string;
-  price: string;
+  price: number;
   url: string;
 }
 
@@ -39,8 +39,12 @@ export function formatCars(vehicles: VehiclesList): FormattedCar[] {
   return Object.values(vehicles)
     .filter((vehicle) => {
       // Exclude vehicles that have a "sell" attribute (ct14) with value ["no"]
-      const sellAttr = vehicle?.attr?.ct14;
-      if (sellAttr && Array.isArray(sellAttr.value) && sellAttr.value.includes('no')) {
+      // const sellAttr = vehicle?.attr?.ct14;
+      // if (sellAttr && Array.isArray(sellAttr.value) && sellAttr.value.includes('no')) {
+      //   return false;
+      // }
+      const priceAttr = vehicle?.attr?.ct13;
+      if (!priceAttr || !priceAttr.value) {
         return false;
       }
       // Include only vehicles with Game Edition/Mode "gta-online" (ct5)
@@ -65,27 +69,14 @@ export function formatCars(vehicles: VehiclesList): FormattedCar[] {
         ? vehicle?.attr?.ct13.formatted_value
         : vehicle?.attr?.ct13?.value.toString();
 
+      const numericString = price.replace(/[^0-9.]/g, '');
+
       return {
         name: vehicle.name,
         class: vehicleClass,
         image: vehicle.thumbnail,
-        price,
+        price: Number.parseFloat(numericString || '0'),
         url: vehicle.url,
       };
-    })
-    .toSorted((a, b) => {
-      // Convert price strings to numeric values for comparison
-      const getNumericPrice = (price: string | undefined): number => {
-        if (!price) return 0;
-        // Remove all non-numeric characters except decimal point
-        const numericString = price.replace(/[^0-9.]/g, '');
-        return Number.parseFloat(numericString) || 0;
-      };
-
-      const priceA = getNumericPrice(a.price);
-      const priceB = getNumericPrice(b.price);
-
-      return priceA - priceB;
-      // return priceB - priceA;
     });
 }

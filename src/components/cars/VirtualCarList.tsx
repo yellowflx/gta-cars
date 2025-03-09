@@ -11,9 +11,13 @@ interface VirtualCarListProps {
   columns: number;
 }
 
-export const VirtualCarList = ({cars, favorites, action, columns}: VirtualCarListProps) => {
+export const VirtualCarList = (props: VirtualCarListProps) => {
+  const cars = useMemo(() => props.cars, [props.cars]);
+  const favorites = useMemo(() => props.favorites, [props.favorites]);
+  const columns = useMemo(() => props.columns, [props.columns]);
+
   const parentRef = useRef<HTMLDivElement>(null);
-  const memoizedAction = useCallback(action, []);
+  const memoizedAction = useCallback(props.action, []);
 
   const rows = useMemo(() => Math.ceil(cars.length / columns), [cars, columns]);
 
