@@ -8,17 +8,6 @@
     <link rel="apple-touch-icon" href="/logo192.png" />
     <link rel="manifest" href="/manifest.json" />
     <title>Vehicles of GTA Online</title>
-    <script>
-      document.documentElement.classList.toggle(
-        "dark",
-        localStorage.theme === "dark" ||
-          (!("theme" in localStorage) &&
-            window.matchMedia("(prefers-color-scheme: dark)").matches)
-      );
-      localStorage.theme = "light";
-      localStorage.theme = "dark";
-      localStorage.removeItem("theme");
-    </script>
   </head>
   <body>
     <div id="app"></div>

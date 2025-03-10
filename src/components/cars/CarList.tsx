@@ -1,3 +1,4 @@
+import {ThemeToggle} from '@/components/ui/theme-toggle';
 import {type FormattedCar, formatCars} from '@/lib/formatCars';
 import {debounce, getColumnsCount} from '@/lib/utils';
 import {useQuery} from '@tanstack/react-query';
@@ -108,7 +109,10 @@ export const CarList = () => {
   return (
     <div className="flex h-screen flex-col gap-4 bg-background">
       <div className="top-0 z-10 px-6 pt-4">
-        <h2 className="mb-4 font-bold text-2xl text-primary">GTA Online Vehicle List</h2>
+        <div className="mb-4 flex items-center justify-between">
+          <h2 className="font-bold text-2xl text-primary">GTA Online Vehicle List</h2>
+          <ThemeToggle />
+        </div>
         <CarFilters classes={classes} favCount={favorites?.length || 0} />
       </div>
       {isLoading || !sortedCars ? (
