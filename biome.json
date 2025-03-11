@@ -43,7 +43,11 @@
         "noUnusedTemplateLiteral": "error"
       },
       "nursery": {
-        "useSortedClasses": "error"
+        "useSortedClasses": {
+          "options": {},
+          "level": "warn",
+          "fix": "safe"
+        }
       }
     }
   },
